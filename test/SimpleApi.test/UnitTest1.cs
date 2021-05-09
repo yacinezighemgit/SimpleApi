@@ -14,7 +14,7 @@ namespace SimpleApi.test
 public void Test()
 {
   var returnValue = controller.Get();
-  Assert.Equal("yacine zighem", returnValue.Value);
+  Assert.Equal("yacine zighemm", returnValue.Value);
 }
      
      
