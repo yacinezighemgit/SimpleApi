@@ -37,7 +37,7 @@ stages:
          dockerRegistryEndpoint: 'Docker Hub'
          command: 'Build an image'
          dockerFile: '**/Dockerfile'
-         imageName: '$(ImageName)'
+         imageName: 'yacinezighem/simpleapi:$(Build.BuildId)'
          includeLatestTag: true
          useDefaultContext: false
          buildContext: '.'
