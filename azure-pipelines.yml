@@ -13,14 +13,7 @@ variables:
   buildConfiguration: 'Release'
   ImageName: 'yacinezighem/simpleapi:$(Build.BuildId)'  
   steps:
-  - task: DotNetCoreCLI@2
-    inputs:
-      command: test
-      projects: '**/*test/*.csproj'
-      arguments: '--configuration $(buildConfiguration)'
 
-  - script: dotnet build --configuration $(buildConfiguration)
-    displayName: 'dotnet build $(buildConfiguration)'
 stages:
 - stage: Build
   displayName: Build image
@@ -29,17 +22,25 @@ stages:
     displayName: Build and push Docker image
     
     steps:
-    - task: Docker@1
-      displayName: 'Build the Docker image'
-      inputs:
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'Docker Hub'
-        command: 'Build an image'
-        dockerFile: '**/Dockerfile'
-        imageName: '$(ImageName)'
-        includeLatestTag: true
-        useDefaultContext: false
-        buildContext: '.'
+      - task: DotNetCoreCLI@2
+        inputs:
+         command: test
+         projects: '**/*test/*.csproj'
+         arguments: '--configuration $(buildConfiguration)'
+
+      - script: dotnet build --configuration $(buildConfiguration)
+        displayName: 'dotnet build $(buildConfiguration)'
+      - task: Docker@1
+        displayName: 'Build the Docker image'
+        inputs:
+         containerregistrytype: 'Container Registry'
+         dockerRegistryEndpoint: 'Docker Hub'
+         command: 'Build an image'
+         dockerFile: '**/Dockerfile'
+         imageName: '$(ImageName)'
+         includeLatestTag: true
+         useDefaultContext: false
+         buildContext: '.'
 
 
 
