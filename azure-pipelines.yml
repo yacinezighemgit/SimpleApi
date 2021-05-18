@@ -11,7 +11,6 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  ImageName: 'yacinezighem/simpleapi:$(Build.BuildId)'  
 steps:
 
 - task: DotNetCoreCLI@2
@@ -23,12 +22,8 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-  # Build and Push
-- task: Docker@2
-  displayName: Login to ACR
-  inputs:
-    command: login
-    containerRegistry: DockerTest
+  # Build and Push Docker
+
 - task: Docker@2
   displayName: Login to Docker Hub
   inputs:
@@ -37,11 +32,11 @@ steps:
 - task: Docker@2
   displayName: Build and Push
   inputs:
-    command: buildAndPush
-    repository: yacinezighem
-    tags: |
-      tag1
-      tag2
+    repository: 'yacinezighem'
+    command: 'buildAndPush'
+    Dockerfile: 
+    buildContext: 
+    tags: ''
 
 
 
