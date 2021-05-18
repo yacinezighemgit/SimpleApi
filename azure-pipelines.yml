@@ -12,36 +12,36 @@ pool:
 variables:
   buildConfiguration: 'Release'
   ImageName: 'yacinezighem/simpleapi:$(Build.BuildId)'  
-  steps:
+steps:
 
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:  
-  - job: DockerImage
-    displayName: Build and push Docker image
-    
-    steps:
-      - task: DotNetCoreCLI@2
-        inputs:
-         command: test
-         projects: '**/*test/*.csproj'
-         arguments: '--configuration $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: '**/*test/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
-      - script: dotnet build --configuration $(buildConfiguration)
-        displayName: 'dotnet build $(buildConfiguration)'
-      - task: Docker@1
-        displayName: 'Build the Docker image'
-        inputs:
-          containerregistrytype: 'Container Registry'
-          dockerRegistryEndpoint: 'DockerTest'
-          command: 'Build an image'
-          dockerFile: '**/Dockerfile'
-          imageName: 'yacinezighem/simpleapi:$(Build.BuildId)'
-          includeLatestTag: true
-          useDefaultContext: false
-          buildContext: '.'
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
 
+  # Build and Push
+- task: Docker@2
+  displayName: Login to ACR
+  inputs:
+    command: login
+    containerRegistry: DockerTest
+- task: Docker@2
+  displayName: Login to Docker Hub
+  inputs:
+    command: login
+    containerRegistry: DockerTest
+- task: Docker@2
+  displayName: Build and Push
+  inputs:
+    command: buildAndPush
+    repository: yacinezighem
+    tags: |
+      tag1
+      tag2
 
 
 
