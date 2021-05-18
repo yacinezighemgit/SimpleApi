@@ -22,3 +22,13 @@ steps:
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+  # Build container image
+- task: Docker@1
+    displayName: 'Build container image'
+    inputs:
+      azureSubscriptionEndpoint: 'DockerTest'
+      azureContainerRegistry: '$(acrHostName)'
+      imageName: '$(imageName):$(Build.BuildId)'
+      useDefaultContext: false
+      buildContext: '$(System.DefaultWorkingDirectory)/PublishedWebApp'
