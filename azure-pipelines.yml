@@ -34,5 +34,3 @@ steps:
     containerRegistry: 'DockerTest'
     repository: 'yacinezighem'
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-    tags: ''
