@@ -33,14 +33,14 @@ stages:
       - task: Docker@1
         displayName: 'Build the Docker image'
         inputs:
-         containerregistrytype: 'Container Registry'
-         dockerRegistryEndpoint: 'Docker Hub'
-         command: 'Build an image'
-         dockerFile: '**/Dockerfile'
-         imageName: 'yacinezighem/simpleapi:$(Build.BuildId)'
-         includeLatestTag: true
-         useDefaultContext: false
-         buildContext: '.'
+          containerregistrytype: 'Container Registry'
+          dockerRegistryEndpoint: 'DockerTest'
+          command: 'Build an image'
+          dockerFile: '**/Dockerfile'
+          imageName: 'yacinezighem/simpleapi:$(Build.BuildId)'
+          includeLatestTag: true
+          useDefaultContext: false
+          buildContext: '.'
 
 
 
