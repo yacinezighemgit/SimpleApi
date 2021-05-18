@@ -25,10 +25,10 @@ steps:
 
   # Build container image
 - task: Docker@1
-    displayName: 'Build container image'
-    inputs:
-      azureSubscriptionEndpoint: 'DockerTest'
-      azureContainerRegistry: '$(acrHostName)'
-      imageName: '$(imageName):$(Build.BuildId)'
-      useDefaultContext: false
-      buildContext: '$(System.DefaultWorkingDirectory)/PublishedWebApp'
+  displayName: 'Build container image'
+  inputs:
+    azureSubscriptionEndpoint: 'DockerTest'
+    azureContainerRegistry: '$(acrHostName)'
+    imageName: '$(imageName):$(Build.BuildId)'
+    useDefaultContext: false
+    buildContext: '$(System.DefaultWorkingDirectory)/PublishedWebApp'
