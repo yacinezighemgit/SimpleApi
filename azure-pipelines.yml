@@ -33,12 +33,12 @@ steps:
   displayName: Login to Docker Hub
   inputs:
     command: login
-    containerRegistry: yacinezighem
+    containerRegistry: DockerTest
 - task: Docker@2
   displayName: Build and Push
   inputs:
     command: buildAndPush
-    repository: YacineRepository
+    repository: yacinezighem
     tags: |
       tag1
       tag2
