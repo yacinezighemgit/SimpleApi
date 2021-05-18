@@ -37,8 +37,9 @@ steps:
 - task: Docker@2
   displayName: Build and Push
   inputs:
-    command: buildAndPush
-    repository: yacinezighem
+    repository: 'yacinezighem'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
     tags: |
       tag1
       tag2
